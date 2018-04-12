@@ -76,7 +76,7 @@ export function getPostById(postId) {
                 return response.json().then((json) => {
                     dispatch({
                         type: 'GET_POST_SUCCESS',
-                        post: json
+                        post: json.post
                     });
                 });
             }

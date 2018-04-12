@@ -28,7 +28,6 @@ class Header extends React.Component {
     }
 
     handleMenuClick(event) {
-        console.log('e v e n t ', event.target.id);
         switch (event.target.id) {
             case "all-news":
                 browserHistory.push('/');

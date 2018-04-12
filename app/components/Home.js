@@ -7,21 +7,36 @@ import Typography from 'material-ui/Typography';
 import Button from 'material-ui/Button';
 import TextField from 'material-ui/TextField';
 import {Link} from 'react-router';
+import {BarLoader} from 'react-spinners';
+
+const styles = {
+    spinner: {
+        position: 'absolute',
+        top: '50 %',
+        left: '50 %',
+        transform: 'translateX(-50 %) translateY(-50 %)'
+    }
+}
 
 class Home extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
             data: [],
-            requestSent: false
+            requestSent: false,
+            myDiv: "",
+            loading: true
         }
+    }
+
+    componentWillMount() {
+        /*this.setState({loading: false});*/
     }
 
     componentDidMount() {
         if (this.props.user) {
             this.props.dispatch(getAllPosts(this.props.user.id));
-            /*let clientHeight = document.getElementById("homeWrapper").clientHeight;*/
-            //window.addEventListener('scroll', this.onScroll.bind(this), false);
+            window.addEventListener('scroll', this.handleOnScroll);
         }
     }
 
@@ -29,20 +44,18 @@ class Home extends React.Component {
         window.removeEventListener('scroll', this.onScroll, false);
     }
 
-    onScroll() {
-        /* if ((window.innerHeight + window.scrollY) >= (document.body.offsetHeight - 500) && this.props.posts.result.posts.length) {
-         console.log('rehefa inon moa zan leiz no ato');
-         }*/
-        /* let scrollTop = (document.documentElement && document.documentElement.scrollTop) || document.body.scrollTop;
-         let scrollHeight = (document.documentElement && document.documentElement.scrollHeight) || document.body.scrollHeight;
-         let clientHeight = document.documentElement.clientHeight || window.innerHeight;
-         let scrolledToBottom = Math.ceil(scrollTop + clientHeight) >= scrollHeight;
-         if (scrolledToBottom) {
-         console.log('farany ambany');
-         }*/
+    handleOnScroll() {
+        let scrollTop = (document.documentElement && document.documentElement.scrollTop) || document.body.scrollTop,
+            scrollHeight = (document.documentElement && document.documentElement.scrollHeight) || document.body.scrollHeight,
+            clientHeight = (document.documentElement && document.documentElement.clientHeight) || window.innerHeight,
+            scrolledToBottom = Math.ceil(scrollTop + clientHeight) >= scrollHeight;
+        if (scrolledToBottom) {
+            console.log('bott om');
+        }
     }
 
     handleChange(event) {
+
         this.props.dispatch(getAllPosts(this.props.user.id, event.target.value));
     }
 
@@ -50,16 +63,17 @@ class Home extends React.Component {
         const posts = this.props.posts;
         if (posts && posts.result && posts.result.posts) {
             return (
-                <div id="homeWrapper" ref="Progress1">
+                <div>
                     <TextField
                         id="search"
                         label="Fikarohana"
                         type="search"
                         margin="normal"
                         onChange={this.handleChange.bind(this)}
+                        ref={(elem)=>{this.myKiv=elem;}}
                         fullWidth
                     />
-                    <List style={{'overflow-y': 'scroll'}}>
+                    <List>
                         {posts.result.posts.map(id=>
                             <Card>
                                 <CardContent>
@@ -78,7 +92,12 @@ class Home extends React.Component {
             );
         } else {
             return (
-                <div><h1>Tongasoa</h1></div>
+                <div style={styles.spinner}>
+                    <BarLoader
+                        color={'#123abc'}
+                        loading={this.state.loading}
+                    />
+                </div>
             )
         }
     }

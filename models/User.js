@@ -1,9 +1,10 @@
 var crypto = require('crypto');
 var bcrypt = require('bcrypt-nodejs');
-var bookshelf = require('../config/bookshelf');
-var Post = require('../models/User');
+const Bookshelf = require('../config/bookshelf');
+const bookshelf = Bookshelf.bookshelf;
+const Post = require('../models/User');
 
-var User = bookshelf.Model.extend({
+const User = bookshelf.Model.extend({
     tableName: 'users',
     hasTimestamps: true,
 

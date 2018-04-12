@@ -17,7 +17,8 @@ class Profile extends React.Component {
             website: props.user.website,
             gravatar: props.user.gravatar,
             password: '',
-            confirm: ''
+            confirm: '',
+            file: null
         };
     }
 
@@ -27,7 +28,10 @@ class Profile extends React.Component {
 
     handleProfileUpdate(event) {
         event.preventDefault();
-        this.props.dispatch(updateProfile(this.state, this.props.token));
+        const formData = new FormData();
+        formData.append('file', this.state.file);
+        formData.append('name', 'kankana be e');
+        this.props.dispatch(updateProfile(this.state, formData, this.props.token));
     }
 
     handleChangePassword(event) {
@@ -48,6 +52,10 @@ class Profile extends React.Component {
         this.props.dispatch(unlink(provider));
     }
 
+    handleUploadFile(e) {
+        this.setState({'file': e.target.files[0]});
+    }
+
     render() {
         return (
             <div className="col-xs-6">
@@ -61,6 +69,7 @@ class Profile extends React.Component {
                                onChange={this.handleChange.bind(this)} fullWidth/><br/>
                     <label>Gravatar</label>
                     <img src={this.state.gravatar} className="gravatar" width="100" height="100"/><br/>
+                    <input type="file" onChange={this.handleUploadFile.bind(this)}/>
                     <Button type="submit" variant="raised" color="primary">Hanova</Button>
                 </form>
                 <h4>Hanova teny miafina</h4>

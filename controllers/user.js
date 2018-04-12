@@ -25,9 +25,10 @@ exports.ensureAuthenticated = function (req, res, next) {
     if (req.isAuthenticated()) {
         next();
     } else {
-        res.status(401).send({msg: 'Unauthorized'});
+        res.status(401).send({msg: 'Tsy afaka mankao ianao'});
     }
 };
+
 /**
  * POST /login
  * Sign in with email and password

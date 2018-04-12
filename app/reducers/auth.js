@@ -1,6 +1,7 @@
 const initialState = {
     token: null,
-    user: {}
+    user: {},
+    posts: {}
 };
 
 export default function auth(state = initialState, action) {

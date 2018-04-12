@@ -5,10 +5,13 @@ var bookshelf = require('bookshelf')(knex);
 bookshelf.plugin('virtuals');
 bookshelf.plugin('visibility');
 
-knex.schema.table('posts', function(table){
+knex.schema.table('posts', function (table) {
     table.date("date");
 });
 
 //knex.migrate.latest();
 
-module.exports = bookshelf;
+module.exports = {
+    bookshelf: bookshelf,
+    knex: knex
+};

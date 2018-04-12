@@ -3,7 +3,20 @@ var path = require('path');
 var logger = require('morgan');
 var compression = require('compression');
 var cookieParser = require('cookie-parser');
+var multer = require('multer');
+var storage = multer.diskStorage({
+    destination: function (req, file, cb) {
+        cb(null, './public/uploads');
+    },
+    filename: function (req, file, cb) {
+        cb(null, file.originalname + '-' + Date.now());
+    }
+})
+
+var upload = multer({storage});
+
 var bodyParser = require('body-parser');
+var fileUpload = require('express-fileupload');
 var expressValidator = require('express-validator');
 var dotenv = require('dotenv');
 var React = require('react');
@@ -47,6 +60,7 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: false}));
 app.use(expressValidator());
 app.use(cookieParser());
+app.use(fileUpload());
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.use(function (req, res, next) {
@@ -80,12 +94,15 @@ if (app.get('env') === 'development') {
     app.use(require('webpack-hot-middleware')(compiler));
 }
 
-app.post('/comment', postController.postComment)
+app.post('/comment', postController.postComment);
 app.get('/get_post/:postId', postController.getPost);
 app.get('/get_posts/:userId', postController.getPosts);
 app.post('/post', postController.postPost);
 app.post('/contact', contactController.contactPost);
-app.put('/account', userController.ensureAuthenticated, userController.accountPut);
+app.put('/account', function (req, res, next) {
+    console.log('req body ', req.file);
+    next();
+}, userController.ensureAuthenticated, userController.accountPut);
 app.delete('/account', userController.ensureAuthenticated, userController.accountDelete);
 app.post('/signup', userController.signupPost);
 app.post('/login', userController.loginPost);

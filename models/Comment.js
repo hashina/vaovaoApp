@@ -1,9 +1,10 @@
 /**
  * Created by Administrateur on 19/03/2018.
  */
-var bookshelf = require('../config/bookshelf');
-var Post = require('../models/Posts');
-var User = require('./User');
+const Bookshelf = require('../config/bookshelf');
+const bookshelf = Bookshelf.bookshelf;
+const Post = require('../models/Posts');
+const User = require('./User');
 
 const Comment = bookshelf.Model.extend({
     tableName: 'comments',
