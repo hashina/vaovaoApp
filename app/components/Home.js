@@ -11,6 +11,7 @@ import Icon from 'material-ui/Icon';
 import IconButton from 'material-ui/IconButton';
 import DeleteIcon from '@material-ui/icons/Delete';
 import ThumbUpIcon from '@material-ui/icons/ThumbUp';
+import {ClimbingBoxLoader} from 'react-spinners';
 
 const styles = theme => ({
     button: {
@@ -99,7 +100,10 @@ class Home extends React.Component {
         } else {
             return (
                 <div style={styles.spinner}>
-                    <h1>LoL</h1>
+                    <ClimbingBoxLoader
+                        color={'#123abc'}
+                        loading='true'
+                    />
                 </div>
             )
         }
