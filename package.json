@@ -4,7 +4,7 @@
   "description": "My app description",
   "scripts": {
     "build": "webpack --display-error-details",
-    "postinstall": "webpack -p --config webpack.prod.config.js --progress",
+    "postinstall": "npm run build",
     "start": "node server.js && webpack --display-error-details",
     "migrate": "knex migrate:latest"
   },
