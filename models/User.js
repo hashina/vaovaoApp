@@ -1,15 +1,15 @@
 var crypto = require('crypto');
 var bcrypt = require('bcrypt-nodejs');
-const Bookshelf = require('../config/bookshelf');
-const bookshelf = Bookshelf.bookshelf;
-const Post = require('../models/User');
+var Bookshelf = require('../config/bookshelf');
+var bookshelf = Bookshelf.bookshelf;
+var Post = require('../models/Posts');
 
-const User = bookshelf.Model.extend({
+var User = bookshelf.Model.extend({
     tableName: 'users',
     hasTimestamps: true,
 
-    allPosts: function () {
-        return this.belongsToMany(Post);
+    posts: function () {
+        return this.hasMany(Post);
     },
 
     initialize: function () {
@@ -52,6 +52,8 @@ const User = bookshelf.Model.extend({
             return 'https://gravatar.com/avatar/' + md5 + '?s=200&d=retro';
         }
     }
+}, {
+    dependents: ['posts']
 });
 
 module.exports = User;

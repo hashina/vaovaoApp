@@ -12,13 +12,23 @@ module.exports = {
 */
 
 module.exports = {
- client: 'pg',
- connection: process.env.DATABASE_URL || {
- host: "localhost",
- user: "postgres",
- password: "rochel1992",
- database: "mega"
- },
- pool: {min: 1, max: 1000},
- acquireConnectionTimeout: 10000
- };
+    client: 'pg',
+    connection: process.env.DATABASE_URL || {
+        host: "localhost",
+        user: "postgres",
+        password: "rochel1992",
+        database: "mega"
+    },
+    pool: {min: 1, max: 1000},
+    acquireConnectionTimeout: 10000
+};
+
+/*module.exports = {
+    client: 'mysql',
+    connection: process.env.DATABASE_URL || {
+        host: "localhost",
+        user: "root",
+        password: "",
+        database: "mega"
+    }
+};*/

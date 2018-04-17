@@ -14,6 +14,8 @@ const Post = bookshelf.Model.extend({
     comments: function () {
         return this.hasMany(Comment);
     }
+}, {
+    dependents: ['comments']
 })
 
 module.exports = Post;
