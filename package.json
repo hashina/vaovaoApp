@@ -4,8 +4,8 @@
   "description": "My app description",
   "scripts": {
     "build": "webpack --display-error-details",
-    "postinstall": "npm run build",
-    "start": "webpack -p --config webpack.prod.config.js --progress",
+    "postinstall": "webpack -p --config webpack.prod.config.js --progress",
+    "start": "node server.js && webpack --display-error-details",
     "migrate": "knex migrate:latest"
   },
   "dependencies": {

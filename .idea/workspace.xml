@@ -2,21 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="8744a7a0-a112-436b-8692-d1ddd8b1f392" name="Default" comment="">
-      <change type="DELETED" beforePath="$PROJECT_DIR$/migrations/20180312092421_users.js" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/migrations/20180312094607_posts.js" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/migrations/20180319135616_comment.js" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/migrations/20180328135157_posts.js" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/migrations/20180328140110_posts.js" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/migrations/20180328140454_posts.js" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/migrations/20180404101646_comments.js" afterPath="" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/components/App.js" afterPath="$PROJECT_DIR$/app/components/App.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/components/Home.js" afterPath="$PROJECT_DIR$/app/components/Home.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/knexfile.js" afterPath="$PROJECT_DIR$/knexfile.js" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/package.json" afterPath="$PROJECT_DIR$/package.json" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/public/js/bundle.js" afterPath="$PROJECT_DIR$/public/js/bundle.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/yarn-error.log" afterPath="$PROJECT_DIR$/yarn-error.log" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/yarn.lock" afterPath="$PROJECT_DIR$/yarn.lock" />
     </list>
     <ignored path="vaovao.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -80,8 +66,8 @@
       <file leaf-file-name="package.json" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/package.json">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="119">
-              <caret line="7" column="69" selection-start-line="7" selection-start-column="69" selection-end-line="7" selection-end-column="69" />
+            <state relative-caret-position="102">
+              <caret line="6" column="73" selection-start-line="6" selection-start-column="73" selection-end-line="6" selection-end-column="73" />
               <folding />
             </state>
           </provider>
@@ -362,12 +348,12 @@
       <workItem from="1523442833742" duration="13535000" />
       <workItem from="1523513779200" duration="22678000" />
       <workItem from="1523858978089" duration="14485000" />
-      <workItem from="1523944831696" duration="3518000" />
+      <workItem from="1523944831696" duration="4137000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="151895000" />
+    <option name="totallyTimeSpent" value="152514000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="1272" y="-8" width="1296" height="1040" extended-state="6" />
@@ -721,8 +707,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/package.json">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="119">
-          <caret line="7" column="69" selection-start-line="7" selection-start-column="69" selection-end-line="7" selection-end-column="69" />
+        <state relative-caret-position="102">
+          <caret line="6" column="73" selection-start-line="6" selection-start-column="73" selection-end-line="6" selection-end-column="73" />
           <folding />
         </state>
       </provider>
