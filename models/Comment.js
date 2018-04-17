@@ -1,6 +1,7 @@
 /**
  * Created by Administrateur on 19/03/2018.
  */
+/*
 const Bookshelf = require('../config/bookshelf');
 const bookshelf = Bookshelf.bookshelf;
 const Post = require('../models/Posts');
@@ -17,4 +18,4 @@ const Comment = bookshelf.Model.extend({
 
 });
 
-module.exports = Comment;
+module.exports = Comment;*/

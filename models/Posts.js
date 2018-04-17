@@ -1,6 +1,7 @@
 /**
  * Created by Administrateur on 09/03/2018.
  */
+/*
 const Bookshelf = require('../config/bookshelf');
 const bookshelf = Bookshelf.bookshelf;
 const User = require('./User');
@@ -14,8 +15,6 @@ const Post = bookshelf.Model.extend({
     comments: function () {
         return this.hasMany(Comment);
     }
-}, {
-    dependents: ['comments']
 })
 
-module.exports = Post;
+module.exports = Post;*/

@@ -7,10 +7,6 @@ bookshelf.plugin('virtuals');
 bookshelf.plugin('visibility');
 bookshelf.plugin(cascadeDelete);
 
-knex.schema.table('posts', function (table) {
-    table.date("date");
-});
-
 //knex.migrate.latest();
 
 module.exports = {

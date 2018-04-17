@@ -1,9 +1,9 @@
 /**
  * Created by Administrateur on 09/03/2018.
  */
-var Post = require('../models/Posts');
-var User = require('../models/User');
-var Comment = require('../models/Comment');
+var Post = require('../models/User').post;
+var User = require('../models/User').user;
+var Comment = require('../models/User').comment;
 var Bookshelf = require('../config/bookshelf');
 var knex = Bookshelf.knex;
 

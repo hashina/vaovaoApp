@@ -56,4 +56,33 @@ var User = bookshelf.Model.extend({
     dependents: ['posts']
 });
 
-module.exports = User;
+var Post = bookshelf.Model.extend({
+    tableName: 'posts',
+    user: function () {
+        return this.belongsTo(User);
+    },
+    comments: function () {
+        return this.hasMany(Comment);
+    }
+}, {
+    dependents: ['comments']
+});
+
+const Comment = bookshelf.Model.extend({
+    tableName: 'comments',
+    posts: function () {
+        return this.belongsTo(Post);
+    },
+    user: function () {
+        return this.belongsTo(User);
+    }
+
+});
+
+module.exports = {
+    user: User,
+    post: Post,
+    comment: Comment
+};
+
+

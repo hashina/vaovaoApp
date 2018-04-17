@@ -5,8 +5,8 @@ var jwt = require('jsonwebtoken');
 var moment = require('moment');
 var request = require('request');
 var qs = require('querystring');
-var User = require('../models/User');
-var Post = require('../models/Posts');
+var User = require('../models/User').user;
+var Post = require('../models/User').post;
 
 function generateToken(user) {
     var payload = {
