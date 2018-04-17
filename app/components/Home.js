@@ -7,16 +7,16 @@ import Typography from 'material-ui/Typography';
 import Button from 'material-ui/Button';
 import TextField from 'material-ui/TextField';
 import {Link} from 'react-router';
-import {BarLoader} from 'react-spinners';
+import Icon from 'material-ui/Icon';
+import IconButton from 'material-ui/IconButton';
+import DeleteIcon from '@material-ui/icons/Delete';
+import ThumbUpIcon from '@material-ui/icons/ThumbUp';
 
-const styles = {
-    spinner: {
-        position: 'absolute',
-        top: '50 %',
-        left: '50 %',
-        transform: 'translateX(-50 %) translateY(-50 %)'
+const styles = theme => ({
+    button: {
+        margin: theme.spacing.unit,
     }
-}
+});
 
 class Home extends React.Component {
     constructor(props) {
@@ -83,6 +83,12 @@ class Home extends React.Component {
                                     </Typography>
                                     <CardActions>
                                         <Link to={`/post/${id}`}>Hijery</Link>
+                                        <IconButton className={styles.button} aria-label="Thumb up" color="primary">
+                                            <ThumbUpIcon></ThumbUpIcon>
+                                        </IconButton>
+                                        <IconButton className={styles.button} aria-label="Delete" color="secondary">
+                                            <DeleteIcon />
+                                        </IconButton>
                                     </CardActions>
                                 </CardContent>
                             </Card>
@@ -93,10 +99,7 @@ class Home extends React.Component {
         } else {
             return (
                 <div style={styles.spinner}>
-                    <BarLoader
-                        color={'#123abc'}
-                        loading={this.state.loading}
-                    />
+                    <h1>LoL</h1>
                 </div>
             )
         }

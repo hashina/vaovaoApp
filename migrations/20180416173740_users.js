@@ -16,10 +16,9 @@ exports.up = function (knex, Promise) {
             table.string('google');
             table.string('vk');
             table.timestamps();
-        })
-    ]);
+        })]);
 };
 
 exports.down = function (knex, Promise) {
-    return knex.schema.dropTable('users');
+
 };

@@ -1,12 +1,15 @@
 exports.up = function (knex, Promise) {
     return Promise.all([
-        knex.schema.createTable('posts', function (table) {
+        knex.schema.createTable('comments', function (table) {
             table.increments();
             table.string('content');
+            table.integer('post_id').references('id').inTable('posts');
             table.integer('user_id').references('id').inTable('users');
-        })]);
+            table.timestamp('created_at');
+        })
+    ]);
 };
 
 exports.down = function (knex, Promise) {
-    return knex.schema.dropTable('posts');
+
 };
