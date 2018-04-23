@@ -114,8 +114,13 @@ class Home extends React.Component {
             );
         } else {
             return (
-                <div>
+                <div style={{position: 'relative'}}>
                     <ClimbingBoxLoader
+                        size={40}
+                        left={-20}
+                        top={10}
+                        status={'loading'}
+                        style={{marginLeft: '50%'}}
                         color={'#123abc'}
                         loading='true'
                     />

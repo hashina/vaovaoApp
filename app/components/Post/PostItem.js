@@ -8,6 +8,21 @@ import {getPostById} from '../../actions/post';
 import {addComment} from '../../actions/post';
 import List from 'material-ui/List';
 import Card, {CardActions, CardContent} from 'material-ui/Card';
+import {withStyles} from 'material-ui/styles';
+import {compose} from 'recompose';
+import Paper from 'material-ui/Paper';
+import Grid from 'material-ui/Grid';
+
+const styles = theme => ({
+    root: {
+        flexGrow: 1,
+    },
+    paper: {
+        padding: theme.spacing.unit * 2,
+        textAlign: 'center',
+        color: theme.palette.text.secondary,
+    },
+});
 
 class PostItem extends Component {
     constructor(props) {
@@ -27,25 +42,35 @@ class PostItem extends Component {
         }
 
         return (
-            <div>
-                <div class="col-xs-6">
-                    <h1>{post ? post.content : "loading..."}</h1>
-                    <form onSubmit={this.handleSubmit.bind(this)}>
-                        <TextField
-                            name="comment"
-                            id="comment"
-                            label="Haneho hevitra"
-                            placeholder="Haneho hevitra"
-                            multiline
-                            rows="4"
-                            margin="normal"
-                            onChange={this.handleChange.bind(this)}
-                            value={this.state.comment}
-                            fullWidth/><br/>
-                        <Button type="submit" variant="raised" color="primary">Alefa</Button>
-                    </form>
-                </div>
-                <List>{cmtList ? cmtList : ""}</List>
+            <div className={styles.root}>
+                <Grid container spacing={24}>
+                    <Grid item xs></Grid>
+                    <Grid item xs={6}>
+                        <h1>{post ? post.content : "loading..."}</h1>
+                        <form onSubmit={this.handleSubmit.bind(this)}>
+                            <TextField
+                                name="comment"
+                                id="comment"
+                                label="Haneho hevitra"
+                                placeholder="Haneho hevitra"
+                                multiline
+                                rows="4"
+                                margin="normal"
+                                onChange={this.handleChange.bind(this)}
+                                value={this.state.comment}
+                                fullWidth/><br/>
+                            <Button type="submit" variant="raised" color="primary">Alefa</Button>
+                        </form>
+                    </Grid>
+                    <Grid item xs></Grid>
+                </Grid>
+                <Grid container spacing={24}>
+                    <Grid item xs></Grid>
+                    <Grid item xs="6">
+                        <List>{cmtList ? cmtList : ""}</List>
+                    </Grid>
+                    <Grid item xs></Grid>
+                </Grid>
             </div>
         );
     }
@@ -74,4 +99,4 @@ const mapStateToProps = (state) => {
     };
 };
 
-export default connect(mapStateToProps)(PostItem);
+export default compose(withStyles(styles, {name: 'PostItem'}), connect(mapStateToProps))(PostItem);
