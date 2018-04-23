@@ -4,8 +4,22 @@ import {connect} from 'react-redux'
 import {signup} from '../../actions/auth';
 import {facebookLogin, twitterLogin, googleLogin, vkLogin, githubLogin} from '../../actions/oauth';
 import Messages from '../Messages';
-import {withStyles, Grid, TextField, Button} from 'material-ui';
+import {TextField, Button} from 'material-ui';
+import {withStyles} from 'material-ui/styles';
+import {compose} from 'recompose';
+import Paper from 'material-ui/Paper';
+import Grid from 'material-ui/Grid';
 
+const styles = theme => ({
+    root: {
+        flexGrow: 1,
+    },
+    paper: {
+        padding: theme.spacing.unit * 2,
+        textAlign: 'center',
+        color: theme.palette.text.secondary,
+    },
+});
 
 class Signup extends React.Component {
     constructor(props) {
@@ -44,24 +58,38 @@ class Signup extends React.Component {
 
     render() {
         return (
-            <div class="col-xs-6">
-                <Messages messages={this.props.messages}/>
-                <form onSubmit={this.handleSignup.bind(this)}>
-                    <TextField type="text" name="name" id="name" label="Anarana" label="Anarana" placeholder="Anarana"
-                               value={this.state.name}
-                               onChange={this.handleChange.bind(this)} autoFocus fullWidth/><br/>
-                    <TextField type="email" name="email" id="email" label="Adiresy mailaka" placeholder="Mailaka"
-                               value={this.state.email}
-                               onChange={this.handleChange.bind(this)} fullWidth/><br/>
-                    <TextField type="password" name="password" id="password" label="Teny miafina"
-                               placeholder="Teny miafina"
-                               value={this.state.password} onChange={this.handleChange.bind(this)} fullWidth/><br/>
-                    <Button type="submit" variant="raised" color="primary">
-                        Alefa
-                    </Button>
-                </form>
-                <hr/>
-                <p>Efa manana kaonty? <Link to="/login">Hiditra</Link></p>
+            <div className={styles.root}>
+                <Grid container spacing={24}>
+                    <Grid item xs></Grid>
+                    <Grid item xs={6}>
+                        <Messages messages={this.props.messages}/>
+                        <form onSubmit={this.handleSignup.bind(this)}>
+                            <TextField type="text" name="name" id="name" label="Anarana" label="Anarana"
+                                       placeholder="Anarana"
+                                       value={this.state.name}
+                                       onChange={this.handleChange.bind(this)} autoFocus fullWidth/><br/>
+                            <TextField type="email" name="email" id="email" label="Adiresy mailaka"
+                                       placeholder="Mailaka"
+                                       value={this.state.email}
+                                       onChange={this.handleChange.bind(this)} fullWidth/><br/>
+                            <TextField type="password" name="password" id="password" label="Teny miafina"
+                                       placeholder="Teny miafina"
+                                       value={this.state.password} onChange={this.handleChange.bind(this)}
+                                       fullWidth/><br/>
+                            <Button type="submit" variant="raised" color="primary">
+                                Alefa
+                            </Button>
+                        </form>
+                    </Grid>
+                    <Grid item xs></Grid>
+                </Grid>
+                <Grid container spacing={24}>
+                    <Grid item xs></Grid>
+                    <Grid item xs={6}>
+                        <p>Efa manana kaonty? <Link to="/login">Hiditra</Link></p>
+                    </Grid>
+                    <Grid item xs></Grid>
+                </Grid>
             </div>
         );
     }
