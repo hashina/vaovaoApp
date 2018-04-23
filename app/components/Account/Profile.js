@@ -1,6 +1,6 @@
 import React from 'react';
 import {connect} from 'react-redux'
-import {updateProfile, changePassword, deleteAccount} from '../../actions/auth';
+import {updateProfile, changePassword, deleteAccount, uploadPicture} from '../../actions/auth';
 import {link, unlink} from '../../actions/oauth';
 import Messages from '../Messages';
 import {TextField, Button} from 'material-ui';
@@ -43,10 +43,15 @@ class Profile extends React.Component {
 
     handleProfileUpdate(event) {
         event.preventDefault();
-        const formData = new FormData();
+        this.props.dispatch(updateProfile(this.state, this.props.token));
+    }
+
+    handleProfilePicUpdate(event) {
+        event.preventDefault();
+        let formData = new FormData();
         formData.append('file', this.state.file);
-        formData.append('name', 'kankana be e');
-        this.props.dispatch(updateProfile(this.state, formData, this.props.token));
+        formData.append('name', 'avatar');
+        this.props.dispatch(uploadPicture(formData, this.props.user.name.replace(/\s/g, '')));
     }
 
     handleChangePassword(event) {
@@ -85,8 +90,12 @@ class Profile extends React.Component {
                             <TextField type="text" name="name" id="name" label="Anarana" placeholder="Anarana"
                                        value={this.state.name}
                                        onChange={this.handleChange.bind(this)} fullWidth/><br/>
-                            <label>Gravatar</label>
-                            <img src={this.state.gravatar} className="gravatar" width="100" height="100"/><br/>
+                            <Button type="submit" variant="raised" color="primary">Hanova</Button>
+                        </form>
+                        <form onSubmit={this.handleProfilePicUpdate.bind(this)}>
+                            <label>Sary</label>
+                            <img src={this.state.gravatar} className="gravatar" width="100"
+                                 height="100"/><br/>
                             <input type="file" onChange={this.handleUploadFile.bind(this)}/>
                             <Button type="submit" variant="raised" color="primary">Hanova</Button>
                         </form>
@@ -99,7 +108,7 @@ class Profile extends React.Component {
                                        placeholder="Hamafiso ilay teny miafina" value={this.state.confirm}
                                        onChange={this.handleChange.bind(this)} fullWidth/>
                             <br/>
-                            <Button type="submit" variant="raised" color="primary">Ovaina</Button>
+                            <Button type="submit" variant="raised" color="primary">Hanova</Button>
                         </form>
                         <form onSubmit={this.handleDeleteAccount.bind(this)}>
                             <p>Ireo kaonty voafafa dia tsy afaka averina intsony.</p>

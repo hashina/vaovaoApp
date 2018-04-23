@@ -5,13 +5,11 @@ var compression = require('compression');
 var cookieParser = require('cookie-parser');
 var multer = require('multer');
 var storage = multer.diskStorage({
-    destination: function (req, file, cb) {
-        cb(null, './public/uploads');
-    },
+    destination: './public',
     filename: function (req, file, cb) {
-        cb(null, file.originalname + '-' + Date.now());
+        cb(null, `${new Date()}-${file.name}`);
     }
-})
+});
 
 var upload = multer({storage});
 
@@ -57,7 +55,7 @@ app.set('port', process.env.PORT || 3000);
 app.use(compression());
 app.use(logger('dev'));
 app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({extended: false}));
+app.use(bodyParser.urlencoded({extended: true}));
 app.use(expressValidator());
 app.use(cookieParser());
 app.use(fileUpload());
@@ -99,10 +97,18 @@ app.get('/get_post/:postId', postController.getPost);
 app.get('/get_posts/:userId', postController.getPosts);
 app.post('/post', postController.postPost);
 app.post('/contact', contactController.contactPost);
-app.put('/account', function (req, res, next) {
-    console.log('req body ', req.file);
-    next();
-}, userController.ensureAuthenticated, userController.accountPut);
+app.post('/upload', upload.single('avatar'), (req, res)=> {
+    let imageFile = req.files.file,
+        filename = req.headers.user;
+    imageFile.mv(`${__dirname}/public/uploads/${filename}.jpg`, function (err) {
+        if (err) {
+            return res.status(500).send(err);
+        }
+        res.json({file: `public/uploads/${filename}.jpg`});
+    })
+});
+app.post('/account', userController.ensureAuthenticated, userController.accountPut);
+
 app.delete('/account', userController.ensureAuthenticated, userController.accountDelete);
 app.post('/signup', userController.signupPost);
 app.post('/login', userController.loginPost);
@@ -112,9 +118,12 @@ app.get('/unlink/:provider', userController.ensureAuthenticated, userController.
 
 // React server rendering
 app.use(function (req, res) {
+    console.log('req url ', req.hostname)
     var initialState = {
         auth: {token: req.cookies.token, user: req.user},
-        messages: {}
+        messages: {},
+        posts: {},
+        comments: {}
     };
 
     var store = configureStore(initialState);

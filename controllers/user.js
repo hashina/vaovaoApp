@@ -290,3 +290,14 @@ exports.resetPost = function (req, res, next) {
         }
     ]);
 };
+
+exports.uploadPhoto = function (req, res) {
+    let imageFile = req.files.file;
+    imageFile.mv(__dirname + '/public/' + req.body.filename + '.jpg', function (err) {
+        console.log('mlam zan eeee');
+        if (err) {
+            return res.status(500).send(err);
+        }
+        res.json({file: `public/${req.body.filename}.jpg`});
+    });
+}
