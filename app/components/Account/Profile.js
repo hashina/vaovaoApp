@@ -4,6 +4,21 @@ import {updateProfile, changePassword, deleteAccount} from '../../actions/auth';
 import {link, unlink} from '../../actions/oauth';
 import Messages from '../Messages';
 import {TextField, Button} from 'material-ui';
+import {withStyles} from 'material-ui/styles';
+import {compose} from 'recompose';
+import Paper from 'material-ui/Paper';
+import Grid from 'material-ui/Grid';
+
+const styles = theme => ({
+    root: {
+        flexGrow: 1,
+    },
+    paper: {
+        padding: theme.spacing.unit * 2,
+        textAlign: 'center',
+        color: theme.palette.text.secondary,
+    },
+});
 
 
 class Profile extends React.Component {
@@ -58,35 +73,41 @@ class Profile extends React.Component {
 
     render() {
         return (
-            <div className="col-xs-6">
-                <Messages messages={this.props.messages}/>
-                <form onSubmit={this.handleProfileUpdate.bind(this)}>
-                    <TextField type="email" name="email" id="email" label="Adiresy mailaka"
-                               placeholder="Mailaka" value={this.state.email}
-                               onChange={this.handleChange.bind(this)} fullWidth/><br/>
-                    <TextField type="text" name="name" id="name" label="Anarana" placeholder="Anarana"
-                               value={this.state.name}
-                               onChange={this.handleChange.bind(this)} fullWidth/><br/>
-                    <label>Gravatar</label>
-                    <img src={this.state.gravatar} className="gravatar" width="100" height="100"/><br/>
-                    <input type="file" onChange={this.handleUploadFile.bind(this)}/>
-                    <Button type="submit" variant="raised" color="primary">Hanova</Button>
-                </form>
-                <h4>Hanova teny miafina</h4>
-                <form onSubmit={this.handleChangePassword.bind(this)}>
-                    <TextField type="password" name="password" id="password" label="Teny miafina vaovao"
-                               placeholder="Teny miafina vaovao" value={this.state.password}
-                               onChange={this.handleChange.bind(this)} fullWidth/>
-                    <TextField type="password" name="confirm" id="confirm" label="Hamafiso ilay teny miafina"
-                               placeholder="Hamafiso ilay teny miafina" value={this.state.confirm}
-                               onChange={this.handleChange.bind(this)} fullWidth/>
-                    <br/>
-                    <Button type="submit" variant="raised" color="primary">Ovaina</Button>
-                </form>
-                <form onSubmit={this.handleDeleteAccount.bind(this)}>
-                    <p>Ireo kaonty voafafa dia tsy afaka averina intsony.</p>
-                    <Button type="submit" variant="raised" color="secondary">Hamafa ny kaontiko</Button>
-                </form>
+            <div className={styles.root}>
+                <Grid container spacing={24}>
+                    <Grid item xs></Grid>
+                    <Grid item xs={6}>
+                        <Messages messages={this.props.messages}/>
+                        <form onSubmit={this.handleProfileUpdate.bind(this)}>
+                            <TextField type="email" name="email" id="email" label="Adiresy mailaka"
+                                       placeholder="Mailaka" value={this.state.email}
+                                       onChange={this.handleChange.bind(this)} fullWidth/><br/>
+                            <TextField type="text" name="name" id="name" label="Anarana" placeholder="Anarana"
+                                       value={this.state.name}
+                                       onChange={this.handleChange.bind(this)} fullWidth/><br/>
+                            <label>Gravatar</label>
+                            <img src={this.state.gravatar} className="gravatar" width="100" height="100"/><br/>
+                            <input type="file" onChange={this.handleUploadFile.bind(this)}/>
+                            <Button type="submit" variant="raised" color="primary">Hanova</Button>
+                        </form>
+                        <h4>Hanova teny miafina</h4>
+                        <form onSubmit={this.handleChangePassword.bind(this)}>
+                            <TextField type="password" name="password" id="password" label="Teny miafina vaovao"
+                                       placeholder="Teny miafina vaovao" value={this.state.password}
+                                       onChange={this.handleChange.bind(this)} fullWidth/>
+                            <TextField type="password" name="confirm" id="confirm" label="Hamafiso ilay teny miafina"
+                                       placeholder="Hamafiso ilay teny miafina" value={this.state.confirm}
+                                       onChange={this.handleChange.bind(this)} fullWidth/>
+                            <br/>
+                            <Button type="submit" variant="raised" color="primary">Ovaina</Button>
+                        </form>
+                        <form onSubmit={this.handleDeleteAccount.bind(this)}>
+                            <p>Ireo kaonty voafafa dia tsy afaka averina intsony.</p>
+                            <Button type="submit" variant="raised" color="secondary">Hamafa ny kaontiko</Button>
+                        </form>
+                    </Grid>
+                    <Grid item xs></Grid>
+                </Grid>
             </div>
         );
     }
@@ -100,4 +121,4 @@ const mapStateToProps = (state) => {
     };
 };
 
-export default connect(mapStateToProps)(Profile);
+export default compose(withStyles(styles, {name: 'Profile'}), connect(mapStateToProps)(Profile));

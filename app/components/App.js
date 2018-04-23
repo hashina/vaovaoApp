@@ -12,7 +12,9 @@ class App extends React.Component {
             <React.Fragment>
                 <CssBaseline />
                 <MuiThemeProvider theme={theme}>
-                    <Header/>
+                    <div className="container">
+                        <Header/>
+                    </div>
                     <div className="container">
                         {this.props.children}
                     </div>

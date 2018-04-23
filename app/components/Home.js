@@ -12,11 +12,20 @@ import IconButton from 'material-ui/IconButton';
 import DeleteIcon from '@material-ui/icons/Delete';
 import ThumbUpIcon from '@material-ui/icons/ThumbUp';
 import {ClimbingBoxLoader} from 'react-spinners';
+import {withStyles} from 'material-ui/styles';
+import {compose} from 'recompose';
+import Paper from 'material-ui/Paper';
+import Grid from 'material-ui/Grid';
 
 const styles = theme => ({
-    button: {
-        margin: theme.spacing.unit,
-    }
+    root: {
+        flexGrow: 1,
+    },
+    paper: {
+        padding: theme.spacing.unit * 2,
+        textAlign: 'center',
+        color: theme.palette.text.secondary,
+    },
 });
 
 class Home extends React.Component {
@@ -64,42 +73,48 @@ class Home extends React.Component {
         const posts = this.props.posts;
         if (posts && posts.result && posts.result.posts) {
             return (
-                <div>
-                    <TextField
-                        id="search"
-                        label="Fikarohana"
-                        type="search"
-                        margin="normal"
-                        onChange={this.handleChange.bind(this)}
-                        ref={(elem)=>{this.myKiv=elem;}}
-                        fullWidth
-                    />
-                    <List>
-                        {posts.result.posts.map(id=>
-                            <Card>
-                                <CardContent>
-                                    <Typography><b> {posts.entities.users[posts.entities.posts[id].user].name}</b></Typography>
-                                    <Typography component="p">
-                                        {posts.entities.posts[id].content}
-                                    </Typography>
-                                    <CardActions>
-                                        <Link to={`/post/${id}`}>Hijery</Link>
-                                        <IconButton className={styles.button} aria-label="Thumb up" color="primary">
-                                            <ThumbUpIcon></ThumbUpIcon>
-                                        </IconButton>
-                                        <IconButton className={styles.button} aria-label="Delete" color="secondary">
-                                            <DeleteIcon />
-                                        </IconButton>
-                                    </CardActions>
-                                </CardContent>
-                            </Card>
-                        )}
-                    </List>
+                <div className={styles.root}>
+                    <Grid container spacing={24}>
+                        <Grid item xs></Grid>
+                        <Grid item xs={6}>
+                            <TextField
+                                id="search"
+                                label="Fikarohana"
+                                type="search"
+                                margin="normal"
+                                onChange={this.handleChange.bind(this)}
+                                ref={(elem)=>{this.myKiv=elem;}}
+                                fullWidth
+                            />
+                            <List>
+                                {posts.result.posts.map(id=>
+                                    <Card>
+                                        <CardContent>
+                                            <Typography><b> {posts.entities.users[posts.entities.posts[id].user].name}</b></Typography>
+                                            <Typography component="p">
+                                                {posts.entities.posts[id].content}
+                                            </Typography>
+                                            <CardActions>
+                                                <Link to={`/post/${id}`}>Hijery</Link>
+                                                <IconButton aria-label="Thumb up" color="primary">
+                                                    <ThumbUpIcon></ThumbUpIcon>
+                                                </IconButton>
+                                                <IconButton aria-label="Delete" color="secondary">
+                                                    <DeleteIcon />
+                                                </IconButton>
+                                            </CardActions>
+                                        </CardContent>
+                                    </Card>
+                                )}
+                            </List>
+                        </Grid>
+                        <Grid item xs></Grid>
+                    </Grid>
                 </div>
             );
         } else {
             return (
-                <div style={styles.spinner}>
+                <div>
                     <ClimbingBoxLoader
                         color={'#123abc'}
                         loading='true'
@@ -117,4 +132,4 @@ const mapStateToProps = (state) => {
     };
 };
 
-export default connect(mapStateToProps)(Home);
+export default compose(withStyles(styles, {name: 'Home'}), connect(mapStateToProps))(Home);
