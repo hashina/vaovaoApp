@@ -121,4 +121,4 @@ const mapStateToProps = (state) => {
     };
 };
 
-export default compose(withStyles(styles, {name: 'Profile'}), connect(mapStateToProps)(Profile));
+export default compose(withStyles(styles, {name: 'Profile'}), connect(mapStateToProps))(Profile);
