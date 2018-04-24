@@ -1,11 +1,12 @@
 var path = require('path');
 var webpack = require('webpack');
+var ExtractTextPlugin = require("extract-text-webpack-plugin");
 
 var config = {
     devtool: 'cheap-module-eval-source-map',
     entry: [
         'webpack-hot-middleware/client',
-        './app/main'
+        './app/main.js'
     ],
     output: {
         path: path.join(__dirname, 'public', 'js'),
@@ -18,20 +19,21 @@ var config = {
         new webpack.optimize.OccurrenceOrderPlugin(),
         new webpack.DefinePlugin({
             'process.env.NODE_ENV': JSON.stringify(process.env.NODE_ENV)
+        }),
+        new ExtractTextPlugin({
+            filename: "[name].css",
+            disable: false,
+            allChunks: true
         })
     ],
     module: {
         rules: [
             {
-                test: /\.css$/, use: 'css-loader'
-            },
-            {
                 test: /\.css$/,
-                loader: 'css-loader',
-                query: {
-                    modules: true,
-                    localIdentName: '[name]__[local]___[hash:base64:5]'
-                }
+                use: ExtractTextPlugin.extract({
+                    fallback: "style-loader",
+                    use: ["css-loader"]
+                })
             },
             {
                 test: /\.js$/,

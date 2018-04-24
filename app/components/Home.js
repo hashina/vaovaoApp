@@ -26,6 +26,10 @@ const styles = theme => ({
         textAlign: 'center',
         color: theme.palette.text.secondary,
     },
+    spinnerStyle: {
+        flex: 1,
+        alignSelf: 'center'
+    }
 });
 
 class Home extends React.Component {
@@ -114,17 +118,7 @@ class Home extends React.Component {
             );
         } else {
             return (
-                <div style={{position: 'relative'}}>
-                    <ClimbingBoxLoader
-                        size={40}
-                        left={-20}
-                        top={10}
-                        status={'loading'}
-                        style={{marginLeft: '50%'}}
-                        color={'#123abc'}
-                        loading='true'
-                    />
-                </div>
+                <div class="loading">Loading&#8230;</div>
             )
         }
     }

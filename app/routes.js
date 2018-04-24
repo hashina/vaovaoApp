@@ -1,6 +1,7 @@
 import React from 'react';
 import {IndexRoute, Route} from 'react-router';
 import App from './components/App';
+import LandingPage from './components/LandingPage';
 import Home from './components/Home';
 import Contact from './components/Contact';
 import PostForm from  './components/Post/PostForm';
@@ -32,7 +33,8 @@ export default function getRoutes(store) {
 
     return (
         <Route path="/" component={App}>
-            <IndexRoute component={Home} onLeave={clearMessages}/>
+            <IndexRoute component={LandingPage} onLeave={clearMessages}/>
+            <Route path="/home" component={Home} onLeave={clearMessages}/>
             <Route path="/post" component={PostForm} onLeave={clearMessages}/>
             <Route path="/post/:id" component={PostItem} onLeave={clearMessages}></Route>
             <Route path="/contact" component={Contact} onLeave={clearMessages}/>

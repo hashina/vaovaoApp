@@ -8,20 +8,35 @@ let theme = createMuiTheme();
 
 class App extends React.Component {
     render() {
-        return (
-            <React.Fragment>
-                <CssBaseline />
-                <MuiThemeProvider theme={theme}>
-                    <div className="container">
-                        <Header/>
-                    </div>
-                    <div className="container">
-                        {this.props.children}
-                    </div>
-                    <Footer/>
-                </MuiThemeProvider>
-            </React.Fragment>
-        );
+        console.log('locate ', this.props.location.pathname)
+        if (this.props.location.pathname == '/') {
+            return (
+                <React.Fragment>
+                    <CssBaseline />
+                    <MuiThemeProvider theme={theme}>
+                        <div className="container">
+                            {this.props.children}
+                        </div>
+                        <Footer/>
+                    </MuiThemeProvider>
+                </React.Fragment>
+            );
+        } else {
+            return (
+                <React.Fragment>
+                    <CssBaseline />
+                    <MuiThemeProvider theme={theme}>
+                        <div className="container">
+                            <Header/>
+                        </div>
+                        <div className="container">
+                            {this.props.children}
+                        </div>
+                        <Footer/>
+                    </MuiThemeProvider>
+                </React.Fragment>
+            );
+        }
     }
 }
 

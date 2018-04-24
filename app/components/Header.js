@@ -30,7 +30,7 @@ class Header extends React.Component {
     handleMenuClick(event) {
         switch (event.target.id) {
             case "all-news":
-                browserHistory.push('/');
+                browserHistory.push('/home');
                 break;
             case "share":
                 browserHistory.push('/post');
