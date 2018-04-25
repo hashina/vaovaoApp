@@ -12,6 +12,10 @@ var User = bookshelf.Model.extend({
         return this.hasMany(Post);
     },
 
+    comments: function () {
+        return this.hasMany(Comment);
+    },
+
     initialize: function () {
         this.on('saving', this.hashPassword, this);
     },
@@ -53,7 +57,7 @@ var User = bookshelf.Model.extend({
         }
     }
 }, {
-    dependents: ['posts']
+    dependents: ['posts', 'comments']
 });
 
 var Post = bookshelf.Model.extend({
