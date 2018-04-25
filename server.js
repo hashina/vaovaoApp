@@ -107,7 +107,7 @@ app.post('/upload', upload.single('avatar'), (req, res)=> {
         res.json({file: `public/uploads/${filename}.jpg`});
     })
 });
-app.post('/account', userController.ensureAuthenticated, userController.accountPut);
+app.put('/account', userController.ensureAuthenticated, userController.accountPut);
 
 app.delete('/account', userController.ensureAuthenticated, userController.accountDelete);
 app.post('/signup', userController.signupPost);
@@ -118,7 +118,6 @@ app.get('/unlink/:provider', userController.ensureAuthenticated, userController.
 
 // React server rendering
 app.use(function (req, res) {
-    console.log('req url ', req.hostname)
     var initialState = {
         auth: {token: req.cookies.token, user: req.user},
         messages: {},

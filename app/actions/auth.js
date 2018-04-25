@@ -143,32 +143,28 @@ export function updateProfile(state, token) {
             type: 'CLEAR_MESSAGES'
         });
         return fetch('/account', {
-            method: 'POST',
+            method: 'PUT',
             headers: {
-                'Authorization': `Bearer ${token}`
+                'Authorization': `Bearer ${token}`,
+                'Content-Type': 'application/json',
             },
             body: JSON.stringify({
                 email: state.email,
                 name: state.name,
-                gender: state.gender,
-                location: state.location,
-                website: state.website,
-                file: formData
             })
         }).then((response) => {
-            console.log('res ponse: ', response);
             if (response.ok) {
                 return response.json().then((json) => {
                     dispatch({
                         type: 'UPDATE_PROFILE_SUCCESS',
-                        messages: [{"error": "tsy haiko"}]
+                        messages: [json]
                     });
                 });
             } else {
                 return response.json().then((json) => {
                     dispatch({
                         type: 'UPDATE_PROFILE_FAILURE',
-                        messages: Array.isArray(json) ? {"error": "tsy haiko"} : [{"error": "tsy haiko"}]
+                        messages: Array.isArray(json) ? json : [json]
                     });
                 });
             }

@@ -27,13 +27,9 @@ class Profile extends React.Component {
         this.state = {
             email: props.user.email,
             name: props.user.name,
-            gender: props.user.gender,
-            location: props.user.location,
-            website: props.user.website,
-            gravatar: props.user.gravatar,
             password: '',
             confirm: '',
-            file: null
+            open: false
         };
     }
 
@@ -43,6 +39,7 @@ class Profile extends React.Component {
 
     handleProfileUpdate(event) {
         event.preventDefault();
+        this.setState({open: true});
         this.props.dispatch(updateProfile(this.state, this.props.token));
     }
 
@@ -64,12 +61,8 @@ class Profile extends React.Component {
         this.props.dispatch(deleteAccount(this.props.token));
     }
 
-    handleLink(provider) {
-        this.props.dispatch(link(provider))
-    }
-
-    handleUnlink(provider) {
-        this.props.dispatch(unlink(provider));
+    onClose() {
+        this.setState({open: false});
     }
 
     handleUploadFile(e) {
@@ -82,7 +75,8 @@ class Profile extends React.Component {
                 <Grid container spacing={24}>
                     <Grid item xs></Grid>
                     <Grid item xs={6}>
-                        <Messages messages={this.props.messages}/>
+                        <Messages onClose={this.onClose.bind(this)} isOpen={this.state.open}
+                                  messages={this.props.messages}/>
                         <form onSubmit={this.handleProfileUpdate.bind(this)}>
                             <TextField type="email" name="email" id="email" label="Adiresy mailaka"
                                        placeholder="Mailaka" value={this.state.email}

@@ -23,7 +23,7 @@ const styles = theme => ({
 class Login extends React.Component {
     constructor(props) {
         super(props);
-        this.state = {email: '', password: ''};
+        this.state = {email: '', password: '', open: false};
     }
 
     handleChange(event) {
@@ -32,8 +32,15 @@ class Login extends React.Component {
 
     handleLogin(event) {
         event.preventDefault();
+        this.setState({open: true});
         this.props.dispatch(login(this.state.email, this.state.password));
     }
+
+    onClose() {
+        console.log('on close Login')
+        this.setState({open: false});
+    }
+
 
     render() {
         return (
@@ -41,7 +48,8 @@ class Login extends React.Component {
                 <Grid container spacing={24}>
                     <Grid item xs></Grid>
                     <Grid item xs={6}>
-                        <Messages messages={this.props.messages}/>
+                        <Messages isOpen={this.state.open} onClose={this.onClose.bind(this)}
+                                  messages={this.props.messages}/>
                         <form onSubmit={this.handleLogin.bind(this)}>
                             <TextField type="email" name="email" id="email" label="Adiresy mailaka"
                                        placeholder="Mailaka" value={this.state.email}
