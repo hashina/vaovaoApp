@@ -8,6 +8,8 @@ import {withStyles} from 'material-ui/styles';
 import {compose} from 'recompose';
 import Paper from 'material-ui/Paper';
 import Grid from 'material-ui/Grid';
+import Dialog, {DialogActions, DialogContent, DialogTitle} from 'material-ui/Dialog';
+import ConfirmationDialog from '../Dialog/ConfirmationDialog';
 
 const styles = theme => ({
     root: {
@@ -29,7 +31,10 @@ class Profile extends React.Component {
             name: props.user.name,
             password: '',
             confirm: '',
-            open: false
+            open: false,
+            openConfirmDialog: false,
+            dialogTitle: '',
+            dialogContent: ''
         };
     }
 
@@ -58,7 +63,12 @@ class Profile extends React.Component {
 
     handleDeleteAccount(event) {
         event.preventDefault();
-        this.props.dispatch(deleteAccount(this.props.token));
+        this.setState({
+            openConfirmDialog: true,
+            dialogTitle: 'Fanamafisana famafana kaonty',
+            dialogContent: 'Indray mandeha tsy miverina ny famafana kaonty, Ho fafana ihany?'
+        });
+        // this.props.dispatch(deleteAccount(this.props.token));
     }
 
     onClose() {
@@ -69,10 +79,21 @@ class Profile extends React.Component {
         this.setState({'file': e.target.files[0]});
     }
 
+    onConfDialogClose(status) {
+        if (status === "ok") {
+            this.props.dispatch(deleteAccount(this.props.token));
+        }
+        this.setState({openConfirmDialog: false});
+    }
+
+
     render() {
         return (
             <div className={styles.root}>
                 <Grid container spacing={24}>
+                    <ConfirmationDialog dialogTitle={this.state.dialogTitle} dialogContent={this.state.dialogContent}
+                                        open={this.state.openConfirmDialog}
+                                        onConfDialogClose={this.onConfDialogClose.bind(this)}/>
                     <Grid item xs></Grid>
                     <Grid item xs={6}>
                         <Messages onClose={this.onClose.bind(this)} isOpen={this.state.open}

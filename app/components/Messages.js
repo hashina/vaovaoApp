@@ -37,12 +37,14 @@ class Messages extends React.Component {
         const {classes} = this.props;
         return this.props.messages.success ? (
             <Snackbar
+                anchorOrigin={{ vertical : 'top', horizontal:'right' }}
                 SnackbarContentProps={{
             'className': `${classes.success}`,
           }} onClose={this.props.onClose} open={this.props.isOpen} autoHideDuration={5000}
                 message={this.props.messages.success.map((message, index) => <div key={index}>{message.msg}</div>)}/>
         ) : this.props.messages.error ? (
             <Snackbar
+                anchorOrigin={{ vertical : 'top', horizontal:'right' }}
                 onClose={this.props.onClose}
                 open={this.props.isOpen}
                 autoHideDuration={5000}
@@ -52,6 +54,7 @@ class Messages extends React.Component {
                 message={this.props.messages.error.map((message, index) => <div key={index}>{message.msg}</div>)}/>
         ) : this.props.messages.info ? (
             <Snackbar
+                anchorOrigin={{ vertical : 'top', horizontal:'right' }}
                 onClose={this.props.onClose}
                 open={this.props.isOpen}
                 autoHideDuration={5000}

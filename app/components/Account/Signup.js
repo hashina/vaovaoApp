@@ -24,7 +24,7 @@ const styles = theme => ({
 class Signup extends React.Component {
     constructor(props) {
         super(props);
-        this.state = {name: '', email: '', password: ''};
+        this.state = {name: '', email: '', password: '', open: false};
     }
 
     handleChange(event) {
@@ -33,27 +33,12 @@ class Signup extends React.Component {
 
     handleSignup(event) {
         event.preventDefault();
+        this.setState({open: true});
         this.props.dispatch(signup(this.state.name, this.state.email, this.state.password));
     }
 
-    handleFacebook() {
-        this.props.dispatch(facebookLogin())
-    }
-
-    handleTwitter() {
-        this.props.dispatch(twitterLogin())
-    }
-
-    handleGoogle() {
-        this.props.dispatch(googleLogin())
-    }
-
-    handleVk() {
-        this.props.dispatch(vkLogin())
-    }
-
-    handleGithub() {
-        this.props.dispatch(githubLogin())
+    onClose() {
+        this.setState({open: false});
     }
 
     render() {
@@ -62,7 +47,8 @@ class Signup extends React.Component {
                 <Grid container spacing={24}>
                     <Grid item xs></Grid>
                     <Grid item xs={6}>
-                        <Messages messages={this.props.messages}/>
+                        <Messages onClose={this.onClose.bind(this)} isOpen={this.state.open}
+                                  messages={this.props.messages}/>
                         <form onSubmit={this.handleSignup.bind(this)}>
                             <TextField type="text" name="name" id="name" label="Anarana" label="Anarana"
                                        placeholder="Anarana"

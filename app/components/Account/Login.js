@@ -9,6 +9,7 @@ import {login} from '../../actions/auth';
 import Messages from '../Messages';
 import {TextField, Button} from 'material-ui';
 
+
 const styles = theme => ({
     root: {
         flexGrow: 1,
@@ -37,7 +38,6 @@ class Login extends React.Component {
     }
 
     onClose() {
-        console.log('on close Login')
         this.setState({open: false});
     }
 
