@@ -83,7 +83,10 @@ class Home extends React.Component {
 
     render() {
         const posts = this.props.posts;
-        if (posts && posts.result && posts.result.posts) {
+        const normalizedData = posts ? posts.normalizedData : {};
+        if (normalizedData && normalizedData.result && normalizedData.result.posts && normalizedData.entities) {
+            const entities = normalizedData.entities;
+            const results = normalizedData.result;
             return (
                 <div className={styles.root}>
                     <Grid container spacing={24}>
@@ -95,16 +98,15 @@ class Home extends React.Component {
                                 type="search"
                                 margin="normal"
                                 onChange={this.handleChange.bind(this)}
-                                ref={(elem)=>{this.myKiv=elem;}}
                                 fullWidth
                             />
                             <List>
-                                {posts.result.posts.map(id=>
+                                {results.posts.map(id=>
                                     <Card>
-                                        <CardContent key={id}>
-                                            <Typography><b> {posts.entities.users[posts.entities.posts[id].user].name}</b></Typography>
-                                            <Typography component="p">
-                                                {posts.entities.posts[id].content}
+                                        <CardContent>
+                                            <Typography><b> {entities.users[entities.posts[id].user].name}</b></Typography>
+                                            <Typography key={id} component="p">
+                                                {entities.posts[id].content}
                                             </Typography>
                                             <CardActions>
                                                 <Link to={`/post/${id}`}>Hijery</Link>
@@ -113,7 +115,7 @@ class Home extends React.Component {
                                                             color="primary">
                                                     <ThumbUpIcon></ThumbUpIcon>
                                                 </IconButton><Badge className={styles.padding} color="primary"
-                                                                    badgeContent={posts.entities.posts[id].likes.length}>
+                                                                    badgeContent={entities.posts[id].likes.length}>
                                             </Badge>
                                                 <IconButton aria-label="Delete" color="secondary">
                                                     <DeleteIcon />
@@ -130,7 +132,7 @@ class Home extends React.Component {
             );
         } else {
             return (
-                <div class="loading">Loading&#8230;</div>
+                <div className="loading">Loading&#8230;</div>
             )
         }
     }
@@ -139,7 +141,7 @@ class Home extends React.Component {
 const mapStateToProps = (state) => {
     return {
         user: state.auth.user,
-        posts: state.posts.posts
+        posts: state.posts
     };
 };
 

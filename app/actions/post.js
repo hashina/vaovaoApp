@@ -52,7 +52,10 @@ export function addLike(postId, userId) {
                 return response.json().then((json)=> {
                     dispatch({
                         type: 'LIKE_POST_SUCCESS',
-                        like: json
+                        payload: {
+                            postId,
+                            json
+                        }
                     });
                 });
             }
@@ -78,7 +81,7 @@ export function getAllPosts(userId, searchText = "") {
                     const normalizedData = normalize(myData, mySchema);
                     dispatch({
                         type: 'GET_POSTS_SUCCESS',
-                        posts: normalizedData
+                        normalizedData
                     });
                 });
             }
@@ -91,7 +94,6 @@ export function getPostById(postId) {
         fetch('/get_post/' + postId).then(function (response) {
             if (response.ok) {
                 return response.json().then((json) => {
-                    console.log('dis patch ', json);
                     dispatch({
                         type: 'GET_POST_SUCCESS',
                         post: json.post
