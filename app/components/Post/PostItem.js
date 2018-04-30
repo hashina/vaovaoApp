@@ -27,7 +27,7 @@ const styles = theme => ({
 class PostItem extends Component {
     constructor(props) {
         super(props);
-        this.state = {comment: ''};
+        this.state = {comment: '', isBtnDisabled: true};
     }
 
     render() {
@@ -59,7 +59,7 @@ class PostItem extends Component {
                                 onChange={this.handleChange.bind(this)}
                                 value={this.state.comment}
                                 fullWidth/><br/>
-                            <Button type="submit" variant="raised" color="primary">Alefa</Button>
+                            <Button type="submit" variant="raised" color="primary" disabled={this.state. isBtnDisabled}>Alefa</Button>
                         </form>
                     </Grid>
                     <Grid item xs></Grid>
@@ -82,7 +82,7 @@ class PostItem extends Component {
     }
 
     handleChange(event) {
-        this.setState({'comment': event.target.value})
+        this.setState({'comment': event.target.value, isBtnDisabled: event.target.value.length > 0 ? false : true})
     }
 
     componentDidMount() {

@@ -17,7 +17,7 @@ export function submitPostForm(userId, content) {
             dispatch({
                 type: 'CREATE_POST_SUCCESS'
             });
-            browserHistory.push('/');
+            browserHistory.push('/home');
         });
     }
 }
@@ -45,6 +45,21 @@ export function addComment(postId, userId, comment) {
     }
 }
 
+export function addLike(postId, userId) {
+    return (dispatch)=> {
+        fetch('/like/' + postId + '/' + userId).then(function (response) {
+            if (response.ok) {
+                return response.json().then((json)=> {
+                    dispatch({
+                        type: 'LIKE_POST_SUCCESS',
+                        like: json
+                    });
+                });
+            }
+        });
+    }
+}
+
 export function getAllPosts(userId, searchText = "") {
     return (dispatch) => {
         fetch('/get_posts/' + userId + '?searchText=' + searchText).then(function (response) {
@@ -52,10 +67,12 @@ export function getAllPosts(userId, searchText = "") {
                 return response.json().then((json) => {
                     const myData = json;
                     const com = new schema.Entity('comments');
+                    const like = new schema.Entity('likes');
                     const usr = new schema.Entity('users');
                     const posts = new schema.Entity('posts', {
                         user: usr,
-                        comments: [com]
+                        comments: [com],
+                        likes: [like]
                     });
                     const mySchema = {posts: [posts]};
                     const normalizedData = normalize(myData, mySchema);
@@ -74,6 +91,7 @@ export function getPostById(postId) {
         fetch('/get_post/' + postId).then(function (response) {
             if (response.ok) {
                 return response.json().then((json) => {
+                    console.log('dis patch ', json);
                     dispatch({
                         type: 'GET_POST_SUCCESS',
                         post: json.post

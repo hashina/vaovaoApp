@@ -8,7 +8,6 @@ let theme = createMuiTheme();
 
 class App extends React.Component {
     render() {
-        console.log('locate ', this.props.location.pathname)
         if (this.props.location.pathname == '/') {
             return (
                 <React.Fragment>

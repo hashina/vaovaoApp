@@ -1,11 +1,12 @@
 /**
  * Created by Administrateur on 09/03/2018.
  */
-var Post = require('../models/User').post;
-var User = require('../models/User').user;
-var Comment = require('../models/User').comment;
-var Bookshelf = require('../config/bookshelf');
-var knex = Bookshelf.knex;
+const Post = require('../models/User').post;
+const User = require('../models/User').user;
+const Comment = require('../models/User').comment;
+const Like = require('../models/User').like;
+const Bookshelf = require('../config/bookshelf');
+const knex = Bookshelf.knex;
 
 /**
  * POST /post
@@ -51,7 +52,7 @@ exports.getPosts = function (req, res) {
                 content: 'posts.content'
             })).orderBy('created_at', 'DESC');
         }).fetchAll({
-            withRelated: ['user', {
+            withRelated: ['user', 'likes', {
                 'comments': function (qb) {
                     qb.orderBy('created_at', 'DESC');
                 }
@@ -63,7 +64,7 @@ exports.getPosts = function (req, res) {
         Post.query(function (qb) {
             qb.orderBy('created_at', 'DESC');
         }).fetchAll({
-            withRelated: ['user', {
+            withRelated: ['user', 'likes', {
                 'comments': function (qb) {
                     qb.orderBy('created_at', 'DESC');
                 }
@@ -79,7 +80,7 @@ exports.getPost = function (req, res) {
     Post.query(function (qb) {
         qb.where('id', req.params.postId).orderBy('created_at', 'DESC');
     }).fetch({
-        withRelated: ['user', {
+        withRelated: ['user', 'likes', {
             'comments': function (qb) {
                 qb.orderBy('created_at', 'DESC');
             }
@@ -87,4 +88,14 @@ exports.getPost = function (req, res) {
     }).then(function (post) {
         return res.send({post: post});
     })
+}
+
+exports.addLike = function (req, res) {
+    new Like({
+        post_id: req.params.postId,
+        user_id: req.params.userId,
+        created_at: new Date()
+    }).save().then(function (model) {
+        res.send({like: model})
+    });
 }

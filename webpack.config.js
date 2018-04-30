@@ -1,8 +1,10 @@
-var path = require('path');
-var webpack = require('webpack');
-var ExtractTextPlugin = require("extract-text-webpack-plugin");
+const path = require('path');
+const webpack = require('webpack');
+const ExtractTextPlugin = require("extract-text-webpack-plugin");
+const UglifyJSPlugin = require('uglifyjs-webpack-plugin');
 
-var config = {
+let config = {
+    mode: 'development',
     devtool: 'cheap-module-eval-source-map',
     entry: [
         'webpack-hot-middleware/client',
@@ -62,11 +64,8 @@ var config = {
 
 if (process.env.NODE_ENV === 'production') {
     config.plugins.push(
-        new webpack.optimize.UglifyJsPlugin({
-            compressor: {
-                screw_ie8: true,
-                warnings: false
-            }
+        new UglifyJSPlugin({
+            sourceMap: true
         })
     );
 }

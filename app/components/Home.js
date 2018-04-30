@@ -1,6 +1,6 @@
 import React from 'react';
 import {connect} from 'react-redux'
-import {getAllPosts, postFilterer} from '../actions/post';
+import {getAllPosts, addLike} from '../actions/post';
 import List from 'material-ui/List';
 import Card, {CardActions, CardContent} from 'material-ui/Card';
 import Typography from 'material-ui/Typography';
@@ -16,6 +16,7 @@ import {withStyles} from 'material-ui/styles';
 import {compose} from 'recompose';
 import Paper from 'material-ui/Paper';
 import Grid from 'material-ui/Grid';
+import Badge from 'material-ui/Badge';
 
 const styles = theme => ({
     root: {
@@ -29,7 +30,10 @@ const styles = theme => ({
     spinnerStyle: {
         flex: 1,
         alignSelf: 'center'
-    }
+    },
+    padding: {
+        padding: `0 ${theme.spacing.unit * 2}px`,
+    },
 });
 
 class Home extends React.Component {
@@ -69,8 +73,12 @@ class Home extends React.Component {
     }
 
     handleChange(event) {
-
         this.props.dispatch(getAllPosts(this.props.user.id, event.target.value));
+    }
+
+    handleLike(e, id) {
+        e.preventDefault();
+        this.props.dispatch(addLike(id, this.props.user.id));
     }
 
     render() {
@@ -93,16 +101,20 @@ class Home extends React.Component {
                             <List>
                                 {posts.result.posts.map(id=>
                                     <Card>
-                                        <CardContent>
+                                        <CardContent key={id}>
                                             <Typography><b> {posts.entities.users[posts.entities.posts[id].user].name}</b></Typography>
                                             <Typography component="p">
                                                 {posts.entities.posts[id].content}
                                             </Typography>
                                             <CardActions>
                                                 <Link to={`/post/${id}`}>Hijery</Link>
-                                                <IconButton aria-label="Thumb up" color="primary">
+                                                <IconButton id={id} onClick={()=>this.handleLike.bind(this)(event, id)}
+                                                            aria-label="Thumb up"
+                                                            color="primary">
                                                     <ThumbUpIcon></ThumbUpIcon>
-                                                </IconButton>
+                                                </IconButton><Badge className={styles.padding} color="primary"
+                                                                    badgeContent={posts.entities.posts[id].likes.length}>
+                                            </Badge>
                                                 <IconButton aria-label="Delete" color="secondary">
                                                     <DeleteIcon />
                                                 </IconButton>

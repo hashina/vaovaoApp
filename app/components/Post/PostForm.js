@@ -24,11 +24,17 @@ const styles = theme => ({
 class PostForm extends React.Component {
     constructor(props) {
         super(props);
-        this.state = {content: ''};
+        this.state = {content: '', isBtnDisabled: true};
     }
 
     handleChange(event) {
-        this.setState({[event.target.name]: event.target.value});
+        if (event.target.value.length > 0) {
+
+        }
+        this.setState({
+            [event.target.name]: event.target.value,
+            isBtnDisabled: event.target.value.length > 0 ? false : true
+        });
     }
 
     handleSubmit(event) {
@@ -56,7 +62,7 @@ class PostForm extends React.Component {
                                 value={this.state.content}
                                 onChange={this.handleChange.bind(this)}
                                 fullWidth/><br/>
-                            <Button type="submit" variant="raised" color="primary">Alefa</Button>
+                            <Button type="submit" variant="raised" color="primary" disabled={this.state.isBtnDisabled}>Alefa</Button>
                         </form>
                     </Grid>
                     <Grid item xs></Grid>

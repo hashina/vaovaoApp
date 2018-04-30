@@ -92,6 +92,7 @@ if (app.get('env') === 'development') {
     app.use(require('webpack-hot-middleware')(compiler));
 }
 
+app.get('/like/:postId/:userId', postController.addLike);
 app.post('/comment', postController.postComment);
 app.get('/get_post/:postId', postController.getPost);
 app.get('/get_posts/:userId', postController.getPosts);

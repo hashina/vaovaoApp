@@ -38,6 +38,11 @@ export default function posts(state = {}, action) {
             return Object.assign({}, state, {
                 comments: [action.comments.comment, ...state.comments]
             });
+        case 'LIKE_POST_SUCCESS':
+            console.log('state, action ', state, action);
+            return state.posts.entities.likes.concat(action.type);
+        //return merge({}, state, action.entities.posts.byId);
+        //return state.posts.entities.likes.concat(action.like);
         default:
             return state;
     }
