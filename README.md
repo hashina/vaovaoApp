@@ -12,7 +12,7 @@
 - **Unit Testing**: none
 - **Database**: mysql
 - **Authentication**: email
-- **Deployment**: none
+- **Deployment**: https://rochel-vaovao.herokuapp.com/
 
 ### License
 The MIT License (MIT)
