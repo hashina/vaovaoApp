@@ -1,9 +1,9 @@
-var crypto = require('crypto');
-var bcrypt = require('bcrypt-nodejs');
-var Bookshelf = require('../config/bookshelf');
-var bookshelf = Bookshelf.bookshelf;
+import crypto from 'crypto';
+import bcrypt from 'bcrypt-nodejs';
+import Bookshelf from '../config/bookshelf';
+let bookshelf = Bookshelf.bookshelf;
 
-const User = bookshelf.Model.extend({
+let User = bookshelf.Model.extend({
     tableName: 'users',
     hasTimestamps: true,
 
@@ -63,7 +63,7 @@ const User = bookshelf.Model.extend({
     dependents: ['posts', 'comments']
 });
 
-const Post = bookshelf.Model.extend({
+let Post = bookshelf.Model.extend({
     tableName: 'posts',
     user: function () {
         return this.belongsTo(User);
@@ -78,7 +78,7 @@ const Post = bookshelf.Model.extend({
     dependents: ['comments']
 });
 
-const Comment = bookshelf.Model.extend({
+let Comment = bookshelf.Model.extend({
     tableName: 'comments',
     posts: function () {
         return this.belongsTo(Post);
@@ -89,7 +89,7 @@ const Comment = bookshelf.Model.extend({
 
 });
 
-const Like = bookshelf.Model.extend({
+let Like = bookshelf.Model.extend({
     tableName: 'likes',
     posts: function () {
         return this.belongsTo(Post);
@@ -103,11 +103,6 @@ const Like = bookshelf.Model.extend({
 
 });
 
-module.exports = {
-    user: User,
-    post: Post,
-    comment: Comment,
-    like: Like
-};
+export {User, Post, Comment, Like};
 
 

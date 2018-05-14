@@ -12,12 +12,10 @@ export default function auth(state = initialState, action) {
         case 'LOGIN_SUCCESS':
         case 'SIGNUP_SUCCESS':
         case 'OAUTH_SUCCESS':
-            return Object.assign({}, state, {
-                token: action.token,
-                user: action.user
-            });
+            return {...state, token: action.token, user: action.user};
         case 'LOGOUT_SUCCESS':
-            return initialState;
+            console.log('state after logout ', state);
+            return {};
         default:
             return state;
     }

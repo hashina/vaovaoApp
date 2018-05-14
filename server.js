@@ -1,31 +1,31 @@
-var express = require('express');
-var path = require('path');
-var logger = require('morgan');
-var compression = require('compression');
-var cookieParser = require('cookie-parser');
-var multer = require('multer');
-var storage = multer.diskStorage({
+import express from 'express';
+import path from 'path';
+import logger from 'morgan';
+import compression from 'compression';
+import cookieParser from 'cookie-parser';
+import multer from 'multer';
+let storage = multer.diskStorage({
     destination: './public',
     filename: function (req, file, cb) {
         cb(null, `${new Date()}-${file.name}`);
     }
 });
 
-var upload = multer({storage});
+let upload = multer({storage});
 
-var bodyParser = require('body-parser');
-var fileUpload = require('express-fileupload');
-var expressValidator = require('express-validator');
-var dotenv = require('dotenv');
-var React = require('react');
-var ReactDOM = require('react-dom/server');
-var Router = require('react-router');
-var Provider = require('react-redux').Provider;
-var jwt = require('jsonwebtoken');
-var moment = require('moment');
-var request = require('request');
-var webpack = require('webpack');
-var config = require('./webpack.config');
+import bodyParser from 'body-parser';
+import fileUpload from 'express-fileupload';
+import expressValidator from 'express-validator';
+import dotenv from 'dotenv';
+import React from 'react';
+import ReactDOM from 'react-dom/server';
+import * as Router from 'react-router';
+import {Provider} from 'react-redux';
+import jwt from 'jsonwebtoken';
+import moment from 'moment';
+import request from 'request';
+import webpack from 'webpack';
+import config from './webpack.config';
 
 // Load environment variables from .env file
 dotenv.load();
@@ -35,7 +35,7 @@ require('babel-core/register');
 require('babel-polyfill');
 
 // Models
-var User = require('./models/User').user;
+import {User} from './models/User';
 
 // Controllers
 var userController = require('./controllers/user');
@@ -74,11 +74,11 @@ app.use(function (req, res, next) {
     if (req.isAuthenticated()) {
         var payload = req.isAuthenticated();
         new User({id: payload.sub})
-            .fetch()
-            .then(function (user) {
-                req.user = user;
-                next();
-            });
+        .fetch()
+        .then(function (user) {
+            req.user = user;
+            next();
+        });
     } else {
         next();
     }
@@ -100,7 +100,7 @@ app.post('/post', postController.postPost);
 app.post('/contact', contactController.contactPost);
 app.post('/upload', upload.single('avatar'), (req, res)=> {
     let imageFile = req.files.file,
-        filename = req.headers.user;
+    filename = req.headers.user;
     imageFile.mv(`${__dirname}/public/uploads/${filename}.jpg`, function (err) {
         if (err) {
             return res.status(500).send(err);
@@ -136,7 +136,7 @@ app.use(function (req, res) {
         } else if (renderProps) {
             var html = ReactDOM.renderToString(React.createElement(Provider, {store: store},
                 React.createElement(Router.RouterContext, renderProps)
-            ));
+                ));
             res.render('layout', {
                 html: html,
                 initialState: store.getState()

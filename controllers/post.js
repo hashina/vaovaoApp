@@ -1,17 +1,17 @@
 /**
  * Created by Administrateur on 09/03/2018.
  */
-const Post = require('../models/User').post;
-const User = require('../models/User').user;
-const Comment = require('../models/User').comment;
-const Like = require('../models/User').like;
-const Bookshelf = require('../config/bookshelf');
-const knex = Bookshelf.knex;
+ import {Post} from '../models/User';
+ import {User} from '../models/User';
+ import {Comment} from '../models/User';
+ import Like from '../models/User';
+ const Bookshelf = require('../config/bookshelf');
+ const knex = Bookshelf.knex;
 
 /**
  * POST /post
  */
-exports.postPost = function (req, res) {
+ let postPost = function (req, res) {
     new Post({
         content: req.body.content,
         user_id: req.body.userId,
@@ -21,7 +21,7 @@ exports.postPost = function (req, res) {
     });
 }
 
-exports.postComment = function (req, res) {
+let postComment = function (req, res) {
     new Comment({
         content: req.body.comment,
         user_id: req.body.userId,
@@ -35,10 +35,10 @@ exports.postComment = function (req, res) {
 /**
  * GET /get_posts 'where', 'content', 'LIKE', '%' + searchText + '%'
  */
-exports.getPosts = function (req, res) {
+ let getPosts = function (req, res) {
     let searchText = req.query.searchText,
-        searchTextSplit = searchText.split(' '),
-        clause = "";
+    searchTextSplit = searchText.split(' '),
+    clause = "";
     searchTextSplit.forEach(function (item) {
         if (item !== '') {
             clause = clause + ":content: like '%" + item + "%' OR ";
@@ -76,7 +76,7 @@ exports.getPosts = function (req, res) {
 
 }
 
-exports.getPost = function (req, res) {
+let getPost = function (req, res) {
     Post.query(function (qb) {
         qb.where('id', req.params.postId).orderBy('created_at', 'DESC');
     }).fetch({
@@ -90,7 +90,7 @@ exports.getPost = function (req, res) {
     })
 }
 
-exports.addLike = function (req, res) {
+let addLike = function (req, res) {
     new Like({
         post_id: req.params.postId,
         user_id: req.params.userId,
@@ -99,3 +99,5 @@ exports.addLike = function (req, res) {
         res.send({like: model})
     });
 }
+
+export {postPost, postComment, getPosts, getPost,addLike}

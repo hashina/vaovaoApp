@@ -1,10 +1,16 @@
 /**
  * Created by Administrateur on 09/03/2018.
  */
-import {browserHistory} from 'react-router';
-import {normalize, schema} from 'normalizr';
+ import {browserHistory} from 'react-router';
+ import {normalize, schema} from 'normalizr';
 
-export function submitPostForm(userId, content) {
+ export const CREATE_POST_SUCCESS = "CREATE_POST_SUCCESS";
+ export const POST_COMMENT_SUCCESS = "POST_COMMENT_SUCCESS";
+ export const LIKE_POST_SUCCESS = "LIKE_POST_SUCCESS";
+ export const GET_POSTS_SUCCESS = "GET_POSTS_SUCCESS";
+ export const GET_POST_SUCCESS = "GET_POST_SUCCESS";
+
+ export function submitPostForm(userId, content) {
     return (dispatch) => {
         fetch('/post', {
             method: 'post',
@@ -15,7 +21,7 @@ export function submitPostForm(userId, content) {
             })
         }).then(function (response) {
             dispatch({
-                type: 'CREATE_POST_SUCCESS'
+                type: CREATE_POST_SUCCESS
             });
             browserHistory.push('/home');
         });
@@ -36,7 +42,7 @@ export function addComment(postId, userId, comment) {
             if (response.ok) {
                 return response.json().then((json) => {
                     dispatch({
-                        type: 'POST_COMMENT_SUCCESS',
+                        type: POST_COMMENT_SUCCESS,
                         comments: json
                     });
                 });
@@ -51,7 +57,7 @@ export function addLike(postId, userId) {
             if (response.ok) {
                 return response.json().then((json)=> {
                     dispatch({
-                        type: 'LIKE_POST_SUCCESS',
+                        type: LIKE_POST_SUCCESS,
                         payload: {
                             postId,
                             json
@@ -80,7 +86,7 @@ export function getAllPosts(userId, searchText = "") {
                     const mySchema = {posts: [posts]};
                     const normalizedData = normalize(myData, mySchema);
                     dispatch({
-                        type: 'GET_POSTS_SUCCESS',
+                        type: GET_POSTS_SUCCESS,
                         normalizedData
                     });
                 });
@@ -95,7 +101,7 @@ export function getPostById(postId) {
             if (response.ok) {
                 return response.json().then((json) => {
                     dispatch({
-                        type: 'GET_POST_SUCCESS',
+                        type: GET_POST_SUCCESS,
                         post: json.post
                     });
                 });

@@ -1,9 +1,10 @@
 /**
  * Created by Administrateur on 09/03/2018.
  */
-import merge from "lodash/merge";
+ import merge from "lodash/merge";
+ import {CREATE_POST_SUCCESS, POST_COMMENT_SUCCESS, LIKE_POST_SUCCESS, GET_POSTS_SUCCESS, GET_POST_SUCCESS} from "../actions/post"
 
-const initialSate = {
+ const initialSate = {
     normalizedData: {}
 };
 
@@ -26,32 +27,27 @@ function updatePostsLike(state, action) {
 
 export default function posts(state = {}, action) {
     switch (action.type) {
-        case 'GET_POSTS_SUCCESS':
-            console.log('POST SUCESS ', action.normalizedData);
-            return Object.assign({}, state, {normalizedData: action.normalizedData});
-        case 'GET_POST_SUCCESS':
-            return Object.assign({}, state, {
-                post: action.post,
-                comments: action.post.comments
-            });
-        case 'CREATE_POST_SUCCESS':
-            return state;
+        case GET_POSTS_SUCCESS:
+        return {...state, normalizedData: action.normalizedData};
+        case GET_POST_SUCCESS:
+        return {...state, post: action.post, comments: action.post.comments};
+        case CREATE_POST_SUCCESS:
+        return state;
         case 'FILTER_POST':
-            state = filterPost(action.text, state.posts.result.posts, state);
-            return state;
-        case 'POST_COMMENT_SUCCESS':
-            return Object.assign({}, state, {
-                comments: [action.comments.comment, ...state.comments]
-            });
-        case 'LIKE_POST_SUCCESS':
-            console.log('action payload ', action.payload);
-            return updatePostsLike(state, action);
+        state = filterPost(action.text, state.posts.result.posts, state);
+        return state;
+        case POST_COMMENT_SUCCESS:
+        return {...state, 
+            comments: [action.comments.comment, ...state.comments]
+        };
+        case LIKE_POST_SUCCESS:
+        return updatePostsLike(state, action);
         /*return Object.assign({}, state, {
          comments: action.like.like
-         });*/
+     });*/
         //return merge({}, state, action.entities.posts.byId);
         //return state.posts.entities.likes.concat(action.like);
         default:
-            return state;
+        return state;
     }
 }
